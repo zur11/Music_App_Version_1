@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2kcl31xr2ouh"]
+
+[ext_resource type="Script" path="res://game_screen/latest_tries/latest_tries.gd" id="1_s6cov"]
+
+[node name="LatestTries" type="HBoxContainer"]
+script = ExtResource("1_s6cov")

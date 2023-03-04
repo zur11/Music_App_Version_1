@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://djneumxpp42np"]
+[gd_scene load_steps=9 format=3 uid="uid://djneumxpp42np"]
 
 [ext_resource type="Theme" uid="uid://bxdc46numn0ub" path="res://assets/theme_1/themes/main_menu/main_menu.tres" id="1_c3dxh"]
 [ext_resource type="Script" path="res://game_screen/game_screen.gd" id="2_jejp2"]
 [ext_resource type="Script" path="res://global_systems/scene_manager_system/scene_container/scene_container.gd" id="3_ds0wg"]
 [ext_resource type="PackedScene" path="res://game_screen/hud/hud.tscn" id="4_wbsfc"]
+[ext_resource type="PackedScene" uid="uid://c2kcl31xr2ouh" path="res://game_screen/latest_tries/latest_tries.tscn" id="5_d7jmr"]
+[ext_resource type="Texture2D" uid="uid://bh7ona4b6oehh" path="res://game_screen/latest_tries/assets/newmdpi.png" id="6_trsrf"]
+[ext_resource type="Texture2D" uid="uid://bmmurv23h6jta" path="res://game_screen/latest_tries/assets/wrongmdpi.png" id="7_17i7o"]
+[ext_resource type="Texture2D" uid="uid://bsgyldn7774dg" path="res://game_screen/latest_tries/assets/correctmdpi.png" id="8_jjwl8"]
 
 [node name="GameScreen" type="Control"]
 custom_minimum_size = Vector2(1920, 1080)
@@ -32,5 +36,18 @@ offset_right = 340.0
 offset_bottom = 177.0
 theme_override_font_sizes/font_size = 55
 text = "GoBack"
+
+[node name="LatestTries" parent="." instance=ExtResource("5_d7jmr")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 751.0
+offset_top = 96.0
+offset_right = 1447.0
+offset_bottom = 148.0
+number_of_tries = 10
+reached_porcentage_signal_emitters = Array[int]([75])
+new_try_texture = ExtResource("6_trsrf")
+wrong_try_texture = ExtResource("7_17i7o")
+correct_try_texture = ExtResource("8_jjwl8")
 
 [connection signal="pressed" from="GoBackToMenuButton" to="." method="_on_go_back_to_menu_button_pressed"]

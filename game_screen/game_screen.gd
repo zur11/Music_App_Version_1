@@ -33,6 +33,7 @@ func _connect_answer_emiters():
 func _on_recibed_answer(_recived_answer:Note):
 	var _is_answer_correct:= _evaluate_answer(_recived_answer)
 	$HUD.update_on_new_try(_is_answer_correct)
+	($'%LatestTries' as LatestTries).new_try(_is_answer_correct)
 	_set_new_question()
 
 func _evaluate_answer(_recived_answer: Note) -> bool:
