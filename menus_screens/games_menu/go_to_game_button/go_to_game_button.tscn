@@ -1,8 +1,56 @@
-[gd_scene load_steps=2 format=3 uid="uid://cur4luxydt1p3"]
+[gd_scene load_steps=4 format=3 uid="uid://cur4luxydt1p3"]
 
 [ext_resource type="Script" path="res://menus_screens/games_menu/go_to_game_button/go_to_game_button.gd" id="1_dd2nj"]
+[ext_resource type="Texture2D" uid="uid://bj8rdhthnsj1w" path="res://assets/theme_1/images/go_to_game_button/star_off.png" id="2_fj1ao"]
+[ext_resource type="Texture2D" uid="uid://yjaoydwve3ey" path="res://assets/theme_1/images/go_to_game_button/red_star_off.png" id="3_tduwd"]
 
 [node name="GoToGameButton" type="Button"]
+offset_right = 1920.0
+offset_bottom = 111.0
 theme_override_font_sizes/font_size = 75
 text = "Anglo Greek"
 script = ExtResource("1_dd2nj")
+
+[node name="PercentageReachedMarkers" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 1720.0
+offset_top = 24.0
+offset_right = 1905.0
+offset_bottom = 97.0
+
+[node name="StarsHContainer" type="HBoxContainer" parent="PercentageReachedMarkers"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Star1" type="TextureRect" parent="PercentageReachedMarkers/StarsHContainer"]
+layout_mode = 2
+texture = ExtResource("2_fj1ao")
+
+[node name="Star2" type="TextureRect" parent="PercentageReachedMarkers/StarsHContainer"]
+layout_mode = 2
+texture = ExtResource("2_fj1ao")
+
+[node name="Star3" type="TextureRect" parent="PercentageReachedMarkers/StarsHContainer"]
+layout_mode = 2
+texture = ExtResource("2_fj1ao")
+
+[node name="DailyTriesAchievementsMarkers" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 178.0
+offset_bottom = 96.0
+
+[node name="TriesStarsHContainer" type="HBoxContainer" parent="DailyTriesAchievementsMarkers"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Star1" type="TextureRect" parent="DailyTriesAchievementsMarkers/TriesStarsHContainer"]
+layout_mode = 2
+texture = ExtResource("3_tduwd")
+
+[node name="Star2" type="TextureRect" parent="DailyTriesAchievementsMarkers/TriesStarsHContainer"]
+layout_mode = 2
+texture = ExtResource("3_tduwd")

@@ -1,10 +1,13 @@
 @tool
 class_name LatestTries extends HBoxContainer
 
-signal porcentage_reached(porcentage)
+signal percentage_reached(percentage:int)
+signal daily_tries_reached()
+
+var total_tries := 0
 
 @export var number_of_tries:int = 0: set = set_number_of_tries
-@export var reached_porcentage_signal_emitters: Array[int]
+@export var reached_percentage_signal_emitters: Array[int]
 
 @export var new_try_texture:Texture = null
 @export var wrong_try_texture:Texture = null
@@ -60,6 +63,8 @@ func _put_nodes_in_tree():
 		self.add_child(try_node) 
 
 func new_try(is_correct:bool):
+	total_tries += 1
+	
 	_last_tries_array.pop_front()
 	_last_tries_array.push_back(int(is_correct))
 	
@@ -70,9 +75,15 @@ func new_try(is_correct:bool):
 			_last_tries_nodes_array[ii].texture = correct_try_texture
 	
 	var correct_tries = _last_tries_array.reduce(func(accum, try): return accum + try, 0)
-	print(correct_tries)
-	for reached_porcentage in reached_porcentage_signal_emitters:
-		var reached_value = reached_porcentage * number_of_tries / 100
-		if correct_tries > reached_value:
-			emit_signal("porcentage_reached", reached_porcentage)
-			print(reached_porcentage)
+	
+	_manage_achievements_signals(correct_tries)
+	
+func _manage_achievements_signals(correct_tries):
+	for reached_percentage in reached_percentage_signal_emitters:
+		@warning_ignore("integer_division")
+		var reached_value = round(reached_percentage * number_of_tries / 100)
+		if correct_tries == reached_value:
+			emit_signal("percentage_reached", reached_percentage)
+	
+	if total_tries == number_of_tries:
+		emit_signal("daily_tries_reached")

@@ -9,6 +9,7 @@ var games : Array[Game]
 
 var current_game: Game = Game.new()
 
+
 func _ready():
 	set_game_scenes()
 
@@ -24,6 +25,11 @@ func set_scenes():
 func restart_game():
 	_connect_answer_emiters()
 	_set_new_question()
+	_connect_achievements_signals()
+
+func _connect_achievements_signals():
+	$'%LatestTries'.connect("percentage_reached", _on_percentage_reached_signal_received)
+	$'%LatestTries'.connect("daily_tries_reached", _on_daily_tries_reached_signal_received)
 
 func _connect_answer_emiters():
 	for answer_emitter in get_tree().get_nodes_in_group("AnswerEmiters"):
@@ -44,6 +50,39 @@ func _set_new_question():
 	correct_answer = Note.new(correct_answer_relative_pitch)
 	$QuestionContainer/Questions.set_new_question(correct_answer)
 	$AnswerContainer/Answers.set_new_question(correct_answer)
+
+func _on_percentage_reached_signal_received(percentage):
+	if current_game.game_achievements.hundred_percent_reached: return
+	
+	current_game.game_achievements.containing_game_name = current_game.game_name
+	
+	if percentage == 100:
+		current_game.game_achievements.hundred_percent_reached = true
+	elif percentage == 80:
+		current_game.game_achievements.eighty_percent_reached = true
+	elif percentage == 50:
+		current_game.game_achievements.fifty_percent_reached = true
+	
+	AchievementsPersistent.add_achievements_to_array(current_game.game_achievements)
+
+func _on_daily_tries_reached_signal_received():
+	if current_game.game_achievements.three_tried_games: return
+	
+	current_game.game_achievements.containing_game_name = current_game.game_name
+	current_game.game_pre_achievements.containing_game_name = current_game.game_name
+	
+	if !current_game.game_achievements.daily_tries_reached:
+		current_game.game_achievements.daily_tries_reached = true
+
+
+	if current_game.game_pre_achievements.game_sessions_counter < 3:
+		current_game.game_pre_achievements.game_sessions_counter += 1
+	
+	if current_game.game_pre_achievements.game_sessions_counter == 3:
+		current_game.game_achievements.three_tried_games = true
+	
+	AchievementsPersistent.add_pre_achievements_to_array(current_game.game_pre_achievements)
+	AchievementsPersistent.add_achievements_to_array(current_game.game_achievements)
 
 func _on_go_back_to_menu_button_pressed():
 	SceneManagerSystem.get_container("ScreenContainer").goto_previous_scene()

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://2553wt414wal"]
+
+[ext_resource type="Script" path="res://achievements_wall/posted_game_achievements/posted_game_achievements.gd" id="1_30j8h"]
+
+[node name="PostedGameAchievements" type="CenterContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_30j8h")
+
+[node name="GameAchievementsHContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 220
+
+[node name="GameNameLabel" type="Label" parent="GameAchievementsHContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Very Very Long Game Name"
+
+[node name="AchievementRowsContainer" type="VBoxContainer" parent="GameAchievementsHContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10

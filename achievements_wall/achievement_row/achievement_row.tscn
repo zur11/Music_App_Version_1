@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg772wfdjx7si"]
+
+[ext_resource type="Texture2D" uid="uid://7qsjgr5j72eh" path="res://assets/theme_1/images/go_to_game_button/star_on.png" id="1_2p4ps"]
+[ext_resource type="Script" path="res://achievements_wall/achievement_row/achievement_row.gd" id="1_xjuvt"]
+
+[node name="AchievementRow" type="HBoxContainer"]
+theme_override_constants/separation = 20
+script = ExtResource("1_xjuvt")
+
+[node name="AchievementNameLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "hundred_percent_reached"
+
+[node name="DecorativeStarTexture" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_2p4ps")

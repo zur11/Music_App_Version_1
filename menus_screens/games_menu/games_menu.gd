@@ -1,22 +1,32 @@
 extends Control
 
+
 func _ready():
-	var games_directory = "res://games/games_tres/"
-	var dir = DirAccess.open(games_directory)
+	_connect_goto_game_buttons()
+	_update_games_achievements()
+	_update_games_pre_achievements()
 
-	for node in get_node("%GotoGameButtons").get_children():
-		node.free()
+func _update_games_achievements():
+	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
+	var game_achievements_array : Array = saved_achievements.game_achievements_array
 
-	if dir:
-		for filename in dir.get_files():
-			if filename.ends_with(".tres"):
-				var new_goto_game_button: GotoGameButton = load("res://menus_screens/games_menu/go_to_game_button/go_to_game_button.tscn").instantiate()
-				var new_game : Game = load(games_directory + filename)
-				new_goto_game_button.game = new_game
-				get_node("%GotoGameButtons").add_child(new_goto_game_button)
-	else:
-		printerr("An error occurred when trying to access folder.")
+	for game_achievements in game_achievements_array:
+		for goto_game_button in get_node("%GotoGameButtons").get_children():
+			if goto_game_button.game.game_name == game_achievements.containing_game_name:
+				goto_game_button.game.game_achievements = game_achievements
+				goto_game_button.update_stars_display()
 
+func _update_games_pre_achievements():
+	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
+	var game_pre_achievements_array : Array = saved_achievements.game_pre_achievements_array
+
+	for game_pre_achievements in game_pre_achievements_array:
+		for goto_game_button in get_node("%GotoGameButtons").get_children():
+			if goto_game_button.game.game_name == game_pre_achievements.containing_game_name:
+				goto_game_button.game.game_pre_achievements = game_pre_achievements
+				goto_game_button.update_stars_display()
+
+func _connect_goto_game_buttons():
 	for goto_game_button in get_node("%GotoGameButtons").get_children():
 		goto_game_button.pressed.connect(_goto_game.bind(goto_game_button))
 
