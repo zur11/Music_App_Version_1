@@ -1,4 +1,6 @@
-class_name GameAchievements extends Resource
+class_name GameAchievements extends Achievements
+
+@export var achievements_type := "game"
 
 @export var h_containing_game_name := ""
 @export var h_game_sessions_counter := 0

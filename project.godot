@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManagerSystem="*res://global_systems/scene_manager_system/system/scene_manager_system.gd"
 AchievementsPersistent="*res://global_systems/achievements_persistent/achievements_persistent.gd"
+AchievementsManager="*res://global_systems/achievements_system/achievements_manager/achievements_manager.gd"
 
 [display]
 

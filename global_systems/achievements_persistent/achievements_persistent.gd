@@ -7,17 +7,24 @@ var saved_achievements := SavedAchievements.new()
 func _init():
 	load_saved_achievements_from_disk()
 
-func add_achievements_to_array(new_achievements:GameAchievements):
-	var game_achievements_array = saved_achievements.game_achievements_array
+func replace_saved_achievements_var(new_achievements:Achievements):
+	if new_achievements.achievements_type == "global":
+		saved_achievements.global_achievements = new_achievements
+	_save_achievements_to_disk()
 
-	if game_achievements_array.size() != 0:
-		for ii in game_achievements_array.size():
-			if game_achievements_array[ii].h_containing_game_name == new_achievements.h_containing_game_name:
-				game_achievements_array[ii] = new_achievements
-				_save_achievements_to_disk()
-				return
+func add_achievements_to_array(new_achievements:Achievements):
+	
+	if new_achievements.achievements_type == "game":
+		var game_achievements_array = saved_achievements.game_achievements_array
 
-	game_achievements_array.append(new_achievements)
+		if game_achievements_array.size() != 0:
+			for ii in game_achievements_array.size():
+				if game_achievements_array[ii].h_containing_game_name == new_achievements.h_containing_game_name:
+					game_achievements_array[ii] = new_achievements
+					_save_achievements_to_disk()
+					return
+
+		game_achievements_array.append(new_achievements)
 	_save_achievements_to_disk()
 
 func _save_achievements_to_disk() -> void:
