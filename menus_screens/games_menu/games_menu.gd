@@ -4,7 +4,6 @@ extends Control
 func _ready():
 	_connect_goto_game_buttons()
 	_update_games_achievements()
-	_update_games_pre_achievements()
 
 func _update_games_achievements():
 	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
@@ -12,18 +11,8 @@ func _update_games_achievements():
 
 	for game_achievements in game_achievements_array:
 		for goto_game_button in get_node("%GotoGameButtons").get_children():
-			if goto_game_button.game.game_name == game_achievements.containing_game_name:
+			if goto_game_button.game.game_name == game_achievements.h_containing_game_name:
 				goto_game_button.game.game_achievements = game_achievements
-				goto_game_button.update_stars_display()
-
-func _update_games_pre_achievements():
-	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
-	var game_pre_achievements_array : Array = saved_achievements.game_pre_achievements_array
-
-	for game_pre_achievements in game_pre_achievements_array:
-		for goto_game_button in get_node("%GotoGameButtons").get_children():
-			if goto_game_button.game.game_name == game_pre_achievements.containing_game_name:
-				goto_game_button.game.game_pre_achievements = game_pre_achievements
 				goto_game_button.update_stars_display()
 
 func _connect_goto_game_buttons():

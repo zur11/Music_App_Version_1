@@ -54,7 +54,7 @@ func _set_new_question():
 func _on_percentage_reached_signal_received(percentage):
 	if current_game.game_achievements.hundred_percent_reached: return
 	
-	current_game.game_achievements.containing_game_name = current_game.game_name
+	current_game.game_achievements.h_containing_game_name = current_game.game_name
 	
 	if percentage == 100:
 		current_game.game_achievements.hundred_percent_reached = true
@@ -68,20 +68,17 @@ func _on_percentage_reached_signal_received(percentage):
 func _on_daily_tries_reached_signal_received():
 	if current_game.game_achievements.three_tried_games: return
 	
-	current_game.game_achievements.containing_game_name = current_game.game_name
-	current_game.game_pre_achievements.containing_game_name = current_game.game_name
+	current_game.game_achievements.h_containing_game_name = current_game.game_name
 	
 	if !current_game.game_achievements.daily_tries_reached:
 		current_game.game_achievements.daily_tries_reached = true
-
-
-	if current_game.game_pre_achievements.game_sessions_counter < 3:
-		current_game.game_pre_achievements.game_sessions_counter += 1
 	
-	if current_game.game_pre_achievements.game_sessions_counter == 3:
+	if current_game.game_achievements.h_game_sessions_counter < 3:
+		current_game.game_achievements.h_game_sessions_counter += 1
+	
+	if current_game.game_achievements.h_game_sessions_counter == 3:
 		current_game.game_achievements.three_tried_games = true
 	
-	AchievementsPersistent.add_pre_achievements_to_array(current_game.game_pre_achievements)
 	AchievementsPersistent.add_achievements_to_array(current_game.game_achievements)
 
 func _on_go_back_to_menu_button_pressed():

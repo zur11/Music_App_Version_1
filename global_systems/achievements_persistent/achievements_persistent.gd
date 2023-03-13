@@ -12,25 +12,12 @@ func add_achievements_to_array(new_achievements:GameAchievements):
 
 	if game_achievements_array.size() != 0:
 		for ii in game_achievements_array.size():
-			if game_achievements_array[ii].containing_game_name == new_achievements.containing_game_name:
+			if game_achievements_array[ii].h_containing_game_name == new_achievements.h_containing_game_name:
 				game_achievements_array[ii] = new_achievements
 				_save_achievements_to_disk()
 				return
 
 	game_achievements_array.append(new_achievements)
-	_save_achievements_to_disk()
-
-func add_pre_achievements_to_array(new_pre_achievements:GamePreAchievements):
-	var game_pre_achievements_array = saved_achievements.game_pre_achievements_array
-
-	if game_pre_achievements_array.size() != 0:
-		for ii in game_pre_achievements_array.size():
-			if game_pre_achievements_array[ii].containing_game_name == new_pre_achievements.containing_game_name:
-				game_pre_achievements_array[ii] = new_pre_achievements
-				_save_achievements_to_disk()
-				return
-
-	game_pre_achievements_array.append(new_pre_achievements)
 	_save_achievements_to_disk()
 
 func _save_achievements_to_disk() -> void:

@@ -11,7 +11,7 @@ func _find_games_containing_game_achievements():
 	
 	if game_achievements_array.size() != 0:
 		for game_achievements in game_achievements_array:
-			_add_new_posted_game_achievements_list(game_achievements.containing_game_name)
+			_add_new_posted_game_achievements_list(game_achievements.h_containing_game_name)
 
 func _add_new_posted_game_achievements_list(game_name:String):
 	var new_achievements_list : Node = load("res://achievements_wall/posted_game_achievements/posted_game_achievements.tscn").instantiate()
