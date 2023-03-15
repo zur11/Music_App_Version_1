@@ -9,11 +9,14 @@ func _update_games_achievements():
 	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
 	var game_achievements_array : Array = saved_achievements.game_achievements_array
 
-	for game_achievements in game_achievements_array:
-		for goto_game_button in get_node("%GotoGameButtons").get_children():
+	for goto_game_button in get_node("%GotoGameButtons").get_children():
+		for game_achievements in game_achievements_array:
 			if goto_game_button.game.game_name == game_achievements.h_containing_game_name:
 				goto_game_button.game.game_achievements = game_achievements
+				
 				goto_game_button.update_stars_display()
+		AchievementsManager.register_game_in_array(goto_game_button.game)
+
 
 func _connect_goto_game_buttons():
 	for goto_game_button in get_node("%GotoGameButtons").get_children():

@@ -1,4 +1,4 @@
-class_name GlobalAchievements extends Achievements
+class_name GlobalAchievements extends Resource
 
 @export var achievements_type := "global"
 
@@ -6,3 +6,5 @@ class_name GlobalAchievements extends Achievements
 
 @export var daily_visit := false
 @export var five_daily_visits := false
+
+@export var seventyfive_percent_in_all_games_reached := false
