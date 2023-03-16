@@ -19,12 +19,16 @@ func check_seventyfive_percent_in_all_games_achievement() -> void:
 		if game.game_achievements.h_seventyfive_percent_reached:
 			games_reached_seventyfive_percent_counter += 1
 	
+	printt("games that reached 75% counter: ", games_reached_seventyfive_percent_counter)
+	
 	if games_reached_seventyfive_percent_counter == 5:
 			var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
 			var global_achievements := saved_achievements.global_achievements
 			
 			global_achievements.seventyfive_percent_in_all_games_reached = true
 			printt("75% in all Games Reached! ", global_achievements.seventyfive_percent_in_all_games_reached)
+			
+			AchievementsPersistent.replace_saved_global_achievements_var(global_achievements)
 
 func update_daily_visit_global_achievements() -> GlobalAchievements:
 	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
@@ -65,6 +69,7 @@ func manage_percentage_reached_game_signal(current_game: Game, percentage : int)
 				
 	if percentage == 50:
 		current_game.game_achievements.fifty_percent_reached = true
+	
 	
 	AchievementsPersistent.add_game_achievements_to_array(current_game.game_achievements)
 
