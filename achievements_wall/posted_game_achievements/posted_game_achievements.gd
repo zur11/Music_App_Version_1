@@ -12,9 +12,7 @@ func _ready():
 
 
 func _get_achievements_names():
-	var game_achievements : SavedAchievements= AchievementsPersistent.load_saved_achievements_from_disk()
-	
-	var game_achievements_array := game_achievements.game_achievements_array
+	var game_achievements_array :Array[GameAchievements] = AchievementsManager.saved_achievements.game_achievements_array
 	
 	for achievements in game_achievements_array:
 		if achievements.h_containing_game_name == game_name:
