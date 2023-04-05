@@ -11,8 +11,9 @@ class_name GameAchievements extends Resource
 @export var three_tried_games_reached : Achievement = Achievement.new()
 
 
-func _init(current_game:Game):
-	h_containing_game_name = current_game.game_name
+func _init(current_game:Game = null):
+	if current_game != null:
+		h_containing_game_name = current_game.game_name
 
 func manage_daily_tries_reached_game_signal() -> void:
 	if three_tried_games_reached.unlocked: return
