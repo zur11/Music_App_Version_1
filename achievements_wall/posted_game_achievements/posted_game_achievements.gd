@@ -16,15 +16,15 @@ func _get_achievements_names():
 	
 	for achievements in game_achievements_array:
 		if achievements.h_containing_game_name == game_name:
-			if achievements.hundred_percent_reached:
+			if achievements.hundred_percent_reached.unlocked:
 				achievements_to_post.append("Hundred Percent Reached")
-			if achievements.eighty_percent_reached:
+			if achievements.eighty_percent_reached.unlocked:
 				achievements_to_post.append("Eighty Percent Reached")
-			if achievements.fifty_percent_reached:
+			if achievements.fifty_percent_reached.unlocked:
 				achievements_to_post.append("Fifty Percent Reached")
-			if achievements.three_tried_games:
+			if achievements.three_tried_games_reached.unlocked:
 				achievements_to_post.append("Three Tried Games")
-			if achievements.daily_tries_reached:
+			if achievements.daily_tries_reached.unlocked:
 				achievements_to_post.append("Daily Tries Reached")
 
 func _add_new_achievement_rows():
