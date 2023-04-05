@@ -29,13 +29,13 @@ func register_game_in_array(new_game:Game) -> void:
 
 func check_seventyfive_percent_in_all_games_achievement() -> void:
 	var games_reached_seventyfive_percent_counter := 0
-	
+
 	for game in _registered_games:
 		if game.game_achievements.h_seventyfive_percent_reached:
 			games_reached_seventyfive_percent_counter += 1
-	
+
 	printt("games that reached 75% counter: ", games_reached_seventyfive_percent_counter)
-	
+
 	if games_reached_seventyfive_percent_counter == 5:
 			seventyfive_percent_in_all_games_reached = true
 			printt("75% in all Games Reached! ", seventyfive_percent_in_all_games_reached)

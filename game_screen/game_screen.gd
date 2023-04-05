@@ -52,42 +52,27 @@ func _set_new_question() -> void:
 	$AnswerContainer/Answers.set_new_question(correct_answer)
 
 func _on_daily_tries_reached_signal_received() -> void:
-	var game_achievements = _update_game_achievements_var()
+	var game_achievements : GameAchievements = current_game.game_achievements
+
+	game_achievements.manage_daily_tries_reached_game_signal()
 	
-	game_achievements.manage_daily_tries_reached_game_signal(current_game)
-	
-	AchievementsPersistent.add_game_achievements_to_array(game_achievements)
+	AchievementsManager.add_game_achievements_to_array(game_achievements)
 	
 func _on_percentage_reached_signal_received(percentage) -> void:
-	var game_achievements = _update_game_achievements_var()
+	var game_achievements : GameAchievements = current_game.game_achievements
 	
-	game_achievements.manage_percentage_reached_game_signal(current_game, percentage)
-	AchievementsPersistent.add_game_achievements_to_array(game_achievements)
+	game_achievements.manage_percentage_reached_game_signal(percentage)
+	AchievementsManager.add_game_achievements_to_array(game_achievements)
 	
 	if game_achievements.h_seventyfive_percent_reached:
 		_manage_global_achievements("seventyfive_percent_in_all_games_reached")
 
-
 func _manage_global_achievements(achievement_name:String) -> void:
-	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
+	var saved_achievements :SavedAchievements = AchievementsManager.saved_achievements
 	var global_achievements := saved_achievements.global_achievements
 	
 	if achievement_name == "seventyfive_percent_in_all_games_reached":
 		global_achievements.check_seventyfive_percent_in_all_games_achievement()
-	
-	AchievementsPersistent.replace_saved_global_achievements_var(global_achievements)
-
-func _update_game_achievements_var() -> GameAchievements:
-	var game_achievements := current_game.game_achievements
-	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
-	var game_achievements_array : Array = saved_achievements.game_achievements_array
-	
-	if game_achievements_array.size() != 0:
-		for saved_game_achievements in game_achievements_array:
-			if saved_game_achievements.h_containing_game_name == current_game.game_name:
-				game_achievements = saved_game_achievements
-	
-	return game_achievements
 
 func _on_go_back_to_menu_button_pressed() -> void:
 	SceneManagerSystem.get_container("ScreenContainer").goto_previous_scene()

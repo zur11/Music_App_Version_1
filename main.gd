@@ -8,14 +8,16 @@ func _ready():
 	SceneManagerSystem.get_container("BackgroundContainer").goto_scene(initial_background)
 	SceneManagerSystem.get_container("ScreenContainer").goto_scene(initial_screen)
 	
+	_load_from_disk()
 	_manage_global_achievements()
 
+func _load_from_disk():
+	AchievementsManager.load_from_disk()
+
 func _manage_global_achievements():
-	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
-	var global_achievements := saved_achievements.global_achievements
+	var global_achievements := AchievementsManager.saved_achievements.global_achievements
 	
 	global_achievements.update_daily_visit_global_achievements()
-	AchievementsPersistent.replace_saved_global_achievements_var(global_achievements)
 	
 #	printt("Times App has been opened: ", global_achievements.h_app_opened_counter)
 #	printt("5 Daily Visits: ", global_achievements.five_daily_visits)

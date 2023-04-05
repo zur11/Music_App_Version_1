@@ -6,10 +6,11 @@ func _ready() -> void:
 	_update_games_achievements()
 
 func _update_games_achievements() -> void:
-	var saved_achievements := AchievementsPersistent.load_saved_achievements_from_disk()
-	var game_achievements_array : Array = saved_achievements.game_achievements_array
-	var global_achievements := saved_achievements.global_achievements
+	var game_achievements_array : Array[GameAchievements] = AchievementsManager.saved_achievements.game_achievements_array
+	var global_achievements : GlobalAchievements = AchievementsManager.saved_achievements.global_achievements
 
+	printt("game_achievements_array: ", game_achievements_array)
+	
 	for goto_game_button in get_node("%GotoGameButtons").get_children():
 		for game_achievements in game_achievements_array:
 			if goto_game_button.game.game_name == game_achievements.h_containing_game_name:
@@ -17,8 +18,6 @@ func _update_games_achievements() -> void:
 				goto_game_button.update_stars_display()
 		
 		global_achievements.register_game_in_array(goto_game_button.game)
-	
-	AchievementsPersistent.replace_saved_global_achievements_var(global_achievements)
 
 func _connect_goto_game_buttons() -> void:
 	for goto_game_button in get_node("%GotoGameButtons").get_children():
